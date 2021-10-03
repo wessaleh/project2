@@ -1,4 +1,267 @@
 package tuition;
 
-public class Date {
+import java.util.Calendar;
+import java.util.StringTokenizer;
+
+/**
+ * This class stores all information for a date of the form "mm/dd/yy".
+ * It can also check if the date is valid per certain specifications.
+ * @author Wesam Saleh
+ */
+
+public class Date implements Comparable<Date>{
+    private final int year;
+    private final int month;
+    private final int day;
+
+    private static final int QUADRENNIAL = 4;
+    private static final int CENTENNIAL = 100;
+    private static final int QUARTER_CENTENNIAL = 400;
+    private static final int MINIMUM_DAY_VALUE = 1;
+    private static final int MINIMUM_MONTH_VALUE = 1;
+    private static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+    private static final String[] MONTHS = new String[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep",
+            "Oct", "Nov", "Dec"};
+    private static final int[] DAYS_OF_MONTH = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private static final int[] DAYS_OF_MONTH_IN_LEAP_YEAR = new int[] {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    /**
+     * take "mm/dd/yyyy" and create a Date object
+     * @param date - the date in string form
+     */
+    public Date(String date) {
+        StringTokenizer st = new StringTokenizer(date, "/");
+        this.month = Integer.parseInt(st.nextToken());
+        this.day = Integer.parseInt(st.nextToken());
+        this.year = Integer.parseInt(st.nextToken());
+    }
+
+    /**
+     * Creates an object with today's date (see Calendar class)
+     * Uses string tokenizer to format the date received from Calendar class
+     */
+    public Date() {
+        String date = Calendar.getInstance().getTime().toString();
+        StringTokenizer dateTokens = new StringTokenizer(date); // parsing the date which is in a particular format
+
+        dateTokens.nextToken();
+        this.month = Integer.parseInt(convertMonthCodeToNumber(dateTokens.nextToken()));
+        this.day = Integer.parseInt(dateTokens.nextToken());
+        dateTokens.nextToken();
+        dateTokens.nextToken();
+        this.year = Integer.parseInt(dateTokens.nextToken());
+    }
+
+    /**
+     * Takes a 3 letter month and converts it to the month's numerical value
+     * @param month - the 3 letter month
+     * @return - the numerical value of the month as a String
+     */
+    private static String convertMonthCodeToNumber(String month){
+        String monthNumber = "";
+
+        for(int i = 0; i < MONTHS.length; i++){
+            if(month.equals(MONTHS[i])){
+                monthNumber = (i+1)/10 + "" + (i+1)%10; // to ensure single digits have a 0 in front
+            }
+        }
+
+        return monthNumber;
+    }
+
+    /**
+     * Check to see if the current date is valid
+     * Dates before 1980 or beyond the current date are invalid
+     * Days of the month must also be valid (including leap years)
+     * @return - true if the date is valid, false if not
+     */
+    public boolean isValid() {
+        Date currentDate = new Date();
+
+        // validating that the date did already occur
+        if(this.compareTo(currentDate) > 0){
+            return false;
+        }
+
+        // validating month
+        if(this.month < MINIMUM_MONTH_VALUE || this.month > NUMBER_OF_MONTHS_IN_A_YEAR)
+            return false;
+
+        // validating day
+        int monthIndex = month-1;
+        int numDaysInThisMonth = isLeapYear(this.year) ? DAYS_OF_MONTH_IN_LEAP_YEAR[monthIndex] :
+                DAYS_OF_MONTH[monthIndex];
+
+        return this.day >= MINIMUM_DAY_VALUE && this.day <= numDaysInThisMonth;
+    }
+
+    /**
+     * Checks if a given year is a leap year
+     * @param year - the year
+     * @return - true if the year is a leap year, false if not
+     */
+    private static boolean isLeapYear(int year) {
+        boolean isDivisibleByFour = year % QUADRENNIAL == 0;
+        boolean isDivisibleBy100 = year % CENTENNIAL == 0;
+        boolean isDivisibleBy400 = year % QUARTER_CENTENNIAL == 0;
+
+        if(isDivisibleByFour){
+            if(isDivisibleBy100){
+                return isDivisibleBy400;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int compareTo(Date date) {
+        if(this.year - date.year != 0){ // check year first
+            return this.year - date.year;
+        }else if(this.month - date.month != 0){ // then check month
+            return this.month - date.month;
+        }else if(this.day - date.day != 0){ // then check day
+            return this.day - date.day;
+        }else {
+            return 0; // otherwise, the two dates are equal
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.month + "/" + this.day + "/" + this.year;
+    }
+
+    /**
+     * testbed main
+     * @param args - command line arguments
+     */
+    public static void main(String[] args) {
+        Date wrongDay = new Date("12/00/2000");
+        Date wrongDay2 = new Date("12/32/2000");
+        Date wrongMonth = new Date("00/27/2000");
+        Date wrongMonth2 = new Date("13/27/2000");
+        Date futureDate = new Date("12/27/2021");
+        Date notLeapYear = new Date("2/29/2001");
+        Date leapYear = new Date("2/29/2004");
+
+        Date correctDate = new Date("12/27/2000");
+        Date todaysDate = new Date();
+        Date todaysDate2 = new Date();
+
+        System.out.println("Test 1: Should determine the next 6 dates to not be valid => ");
+        if (wrongDay.isValid()){
+            System.out.println("1) failed");
+        }
+        else{
+            System.out.println("1) passed");
+        }
+        if (wrongDay2.isValid()){
+            System.out.println("2) failed");
+        }
+        else{
+            System.out.println("2) passed");
+        }
+        if (wrongMonth.isValid()){
+            System.out.println("3) failed");
+        }
+        else{
+            System.out.println("3) passed");
+        }
+        if (wrongMonth2.isValid()){
+            System.out.println("4) failed");
+        }
+        else{
+            System.out.println("4) passed");
+        }
+        if (futureDate.isValid()){
+            System.out.println("5) failed");
+        }
+        else{
+            System.out.println("5) passed");
+        }
+        if (notLeapYear.isValid()){
+            System.out.println("6) failed");
+        }
+        else{
+            System.out.println("6) passed");
+        }
+
+
+        System.out.println("Test 2: Should determine the next 3 dates to be valid => ");
+        if (correctDate.isValid()){
+            System.out.println("1) passed");
+        }
+        else{
+            System.out.println("1) failed");
+        }
+        if (leapYear.isValid()){
+            System.out.println("2) passed");
+        }
+        else{
+            System.out.println("2) failed");
+        }
+        if (todaysDate.isValid()){
+            System.out.println("3) passed");
+        }
+        else{
+            System.out.println("3) failed");
+        }
+
+        System.out.print("Test 3: Should print today's date => ");
+        System.out.println(todaysDate.toString());
+
+        System.out.println("Test 4: Should determine the next 2 as leap years => ");
+        if (isLeapYear(2004)){
+            System.out.println("1) passed");
+        }
+        else{
+            System.out.println("1) failed");
+        }
+        if (isLeapYear(2000)){
+            System.out.println("2) passed");
+        }
+        else{
+            System.out.println("2) failed");
+        }
+
+        System.out.println("Test 5: Should determine the next 2 as not leap years => ");
+        if (isLeapYear(2005)){
+            System.out.println("1) failed");
+        }
+        else{
+            System.out.println("1) passed");
+        }
+        if (isLeapYear(1900)){
+            System.out.println("2) failed");
+        }
+        else{
+            System.out.println("2) passed");
+        }
+
+        System.out.println("Test 6: Should determine the two years are equal => ");
+        if (todaysDate.compareTo(todaysDate2) == 0){
+            System.out.println("1) passed");
+        }
+        else{
+            System.out.println("2) failed");
+        }
+
+        System.out.println("Test 7: Should determine the date occurred before today's date => ");
+        if (todaysDate.compareTo(correctDate) > 0){
+            System.out.println("1) passed");
+        }
+        else{
+            System.out.println("2) failed");
+        }
+
+        System.out.println("Test 8: Should convert Dec to 12 => ");
+        if (convertMonthCodeToNumber("Dec").equals("12")){
+            System.out.println("1) passed");
+        }
+        else{
+            System.out.println("2) failed");
+        }
+
+    }
 }
