@@ -1,7 +1,18 @@
 package tuition;
 
 public class International extends NonResident{
-    public International(Profile profile) {
-        super(profile);
+    boolean studyingAbroad;
+
+    public International(Profile profile, int creditHours, boolean studyingAbroad) {
+        super(profile, creditHours);
+        this.studyingAbroad = studyingAbroad;
+    }
+
+    @Override
+    /**
+     * calculates and returns the tuition due for this student
+     */
+    public void tuitionDue(){
+
     }
 }
