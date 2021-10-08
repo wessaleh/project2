@@ -2,6 +2,7 @@ package tuition;
 
 import java.util.InputMismatchException;
 import java.lang.NumberFormatException;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -121,8 +122,7 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      * @return true if the number of tokens is valid, false if not
      */
-    private static boolean validateAddTokens(StringTokenizer st) {
-        int requiredTokens = 2;
+    private static boolean validateTokens(StringTokenizer st, int requiredTokens) {
         if(st.countTokens() < requiredTokens){
             System.out.println("Missing data in command line.");
             return false;
@@ -147,9 +147,9 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      * @return the profile of the student
      */
-    private static Profile createStudentProfile(StringTokenizer st) {
+    private static Profile createStudentProfile(StringTokenizer st, int requiredTokens) {
         // validating the number of tokens for adding this student is correct
-        if(!validateAddTokens(st)) {
+        if(!validateTokens(st, requiredTokens)) {
             return null;
         }
 
@@ -172,11 +172,40 @@ public class TuitionManager {
     }
 
     /**
+     * Gets the state code given the rest of the string tokens
+     * @param st - the rest of the tokens
+     * @return the state code, if valid
+     */
+    private static String getStateCode(StringTokenizer st) {
+        String stateCode = st.nextToken().toUpperCase();
+
+        if(stateCode.equals("NY") || stateCode.equals("CT")){
+            return stateCode;
+        }else{
+            System.out.println("Not part of the tri-state area.");
+            return null;
+        }
+    }
+
+    /**
+     * Gets the study abroad status
+     * @param st - the rest of the tokens
+     * @return true if student is studying abroad, false if not
+     */
+    private static boolean getStudyAbroadStatus(StringTokenizer st) {
+        String studyAbroad = st.nextToken();
+        if(studyAbroad.equals("true"))
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * Adds a resident student to the roster
      * @param st - the rest of the tokens
      */
     public void addResidentStudent(StringTokenizer st) {
-        Profile studentProfile = createStudentProfile(st);
+        Profile studentProfile = createStudentProfile(st, 2);
 
         // student profile could not be created
         if(studentProfile == null)
@@ -202,7 +231,7 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      */
     public static void addNonResidentStudent(StringTokenizer st) {
-        Profile studentProfile = createStudentProfile(st);
+        Profile studentProfile = createStudentProfile(st, 2);
 
         // student profile could not be created
         if(studentProfile == null)
@@ -215,16 +244,42 @@ public class TuitionManager {
                 return; // not a valid number of credits
             }
 
-            NonResident residentStudent = new NonResident(studentProfile, numCredits); // creating student
-            validateAddStudent(residentStudent); // adding student to roster
+            NonResident nonResidentStudent = new NonResident(studentProfile, numCredits); // creating student
+            validateAddStudent(nonResidentStudent); // adding student to roster
         }catch(NumberFormatException e) {
             System.out.println("Invalid credit hours"); // Credits passed in was not an integer
             return;
         }
     }
 
+    /**
+     * Adds a tri-state student to the roster
+     * @param st - the rest of the tokens
+     */
     public static void addTriStateStudent(StringTokenizer st) {
+        Profile studentProfile = createStudentProfile(st, 4);
 
+        // student profile could not be created
+        if(studentProfile == null)
+            return;
+
+        // trying to get the number of credits
+        try{
+            int numCredits = validateCredits(st);
+            if(numCredits == -1){
+                return; // not a valid number of credits
+            }
+
+            String stateCode = getStateCode(st);
+            if(stateCode == null)
+                return;
+
+            TriState triStateStudent = new TriState(studentProfile, numCredits, stateCode); // creating student
+            validateAddStudent(triStateStudent); // adding student to roster
+        }catch(NumberFormatException e) {
+            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            return;
+        }
     }
 
     public static void addInternationalStudent(StringTokenizer st) {
