@@ -26,7 +26,7 @@ public class Resident extends Student{
     /**
      * calculates and returns the tuition due for this student
      */
-    // Should this return the tuition due or just change Student.tuition??
+    // Should this return the tuition due or just change Student.tuition?? You had it as returning void before, I assumed it was a type.
     public double tuitionDue(){
         return this.tuition - this.payments;
     }
