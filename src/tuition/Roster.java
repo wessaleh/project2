@@ -2,15 +2,14 @@ package tuition;
 
 public class Roster {
     private final int invalidIndex = -1;
-    private final int initialCapacity = 4;
-    private final int growthRate = 4;
     private Student[] roster;
     private int size; //keep track of the number of students in the roster
 
     /**
      * Constructor for a student roster. Initial capacity is 4.
      */
-    public Roster(){
+    public Roster() {
+        int initialCapacity = 4;
         roster = new Student[initialCapacity];
         size = 0;
     }
@@ -40,6 +39,7 @@ public class Roster {
      * Increases the student roster by 4
      */
     private void grow() {
+        int growthRate = 4;
         Student[] newRoster = new Student[roster.length + growthRate]; // growing roster
 
         // copying students to new roster
@@ -83,15 +83,13 @@ public class Roster {
             return false;
         }
 
-        int nextAvailableSlot = size - 1;
-
         // if not enough space, grow
-        if(nextAvailableSlot >= roster.length){
+        if(size >= roster.length){
             this.grow();
         }
 
         // adding new student
-        roster[nextAvailableSlot] = student;
+        roster[size] = student;
         size++;
 
         return true;
