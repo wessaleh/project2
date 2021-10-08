@@ -18,4 +18,52 @@ public class Profile {
         this.name = name;
         this.major = major;
     }
+
+    /**
+     * Getter for student's name
+     * @return name of the student
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Getter for student's major
+     * @return student's major
+     */
+    public Major getMajor() {
+        return major;
+    }
+
+    /**
+     * Checks if a given object is equal to this profile
+     * @param obj - the object to compare
+     * @return true if the profiles are equal, false if not
+     */
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null){
+            return false;
+        }
+
+        if(obj instanceof Profile){
+            Profile profileToCompare = (Profile) obj;
+
+            boolean hasSameName = profileToCompare.name.equals(this.name);
+            boolean hasSameMajor = profileToCompare.major.equals(this.major);
+
+            return hasSameName && hasSameMajor;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Converts a profile to a string
+     * @return String representation of this profile
+     */
+    @Override
+    public String toString(){
+        return this.name + ":" + this.major;
+    }
 }
