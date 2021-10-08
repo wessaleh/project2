@@ -1,5 +1,9 @@
 package tuition;
 
+/**
+ *
+ */
+
 public class Resident extends Student{
     public Resident(Profile profile, int creditHours) {
         super(profile, creditHours);

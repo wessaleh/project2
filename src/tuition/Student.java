@@ -9,9 +9,10 @@ package tuition;
 public class Student {
     private Profile profile;
     private int creditHours;
-    private double tuition;
-    private double payments;
-    private Date lastPaymentDate;
+    public double tuition;
+    public double payments;
+    public double fees;
+    public Date lastPaymentDate;
 
     /**
      * Constructor for student class
@@ -23,24 +24,6 @@ public class Student {
         this.lastPaymentDate = null;
         this.tuition = 0;
         this.payments = 0;
-    }
-
-    /**
-     * Sets the tuition of this Student
-     * @param tuitionAmount - the amount to set the tuition
-     */
-    public void setTuition(double tuitionAmount) {
-        this.tuition = tuitionAmount;
-    }
-
-    /**
-     * Makes a payment for this student on the given date
-     * @param payment - payment to be made
-     * @param paymentDate - date payment was made
-     */
-    public void makePayment(double payment, Date paymentDate){
-        this.payments += payment;
-        this.lastPaymentDate = paymentDate;
     }
 
     /**
