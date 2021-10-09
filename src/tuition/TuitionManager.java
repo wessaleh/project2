@@ -12,6 +12,8 @@ import java.util.StringTokenizer;
  */
 
 public class TuitionManager {
+    private static int invalid = -1;
+
     StringTokenizer st;
     static Roster studentRoster;
 
@@ -92,26 +94,29 @@ public class TuitionManager {
      * @return true if credits are valid, false if not
      */
     private static int validateCredits(StringTokenizer st) throws NumberFormatException{
+        int minimumNumberOfCredits = 3;
+        int maximumNumberOfCredits = 24;
+
         if(!st.hasMoreTokens()) {
             System.out.println("Credit hours missing.");
-            return -1;
+            return invalid;
         }
 
         int numCredits = Integer.parseInt(st.nextToken());
 
         boolean negative = numCredits < 0;
-        boolean lessThanMinimum = numCredits < 3;
-        boolean greaterThanMaximum = numCredits > 24;
+        boolean lessThanMinimum = numCredits < minimumNumberOfCredits;
+        boolean greaterThanMaximum = numCredits > maximumNumberOfCredits;
 
         if(negative) {
             System.out.println("Credit hours cannot be negative.");
-            return -1;
+            return invalid;
         }else if(lessThanMinimum) {
             System.out.println("Minimum credit hours is 3.");
-            return -1;
+            return invalid;
         }else if(greaterThanMaximum) {
             System.out.println("Credit hours exceed the maximum 24.");
-            return -1;
+            return invalid;
         }
 
         return numCredits;
@@ -205,7 +210,8 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      */
     public void addResidentStudent(StringTokenizer st) {
-        Profile studentProfile = createStudentProfile(st, 2);
+        int numRequiredTokens = 2;
+        Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
         // student profile could not be created
         if(studentProfile == null)
@@ -214,7 +220,7 @@ public class TuitionManager {
         // trying to get the number of credits
         try{
             int numCredits = validateCredits(st);
-            if(numCredits == -1){
+            if(numCredits == invalid){
                 return; // not a valid number of credits
             }
 
@@ -231,7 +237,8 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      */
     public static void addNonResidentStudent(StringTokenizer st) {
-        Profile studentProfile = createStudentProfile(st, 2);
+        int numRequiredTokens = 2;
+        Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
         // student profile could not be created
         if(studentProfile == null)
@@ -240,7 +247,7 @@ public class TuitionManager {
         // trying to get the number of credits
         try{
             int numCredits = validateCredits(st);
-            if(numCredits == -1){
+            if(numCredits == invalid){
                 return; // not a valid number of credits
             }
 
@@ -257,7 +264,8 @@ public class TuitionManager {
      * @param st - the rest of the tokens
      */
     public static void addTriStateStudent(StringTokenizer st) {
-        Profile studentProfile = createStudentProfile(st, 4);
+        int numRequiredTokens = 4;
+        Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
         // student profile could not be created
         if(studentProfile == null)
@@ -266,7 +274,7 @@ public class TuitionManager {
         // trying to get the number of credits
         try{
             int numCredits = validateCredits(st);
-            if(numCredits == -1){
+            if(numCredits == invalid){
                 return; // not a valid number of credits
             }
 
@@ -282,8 +290,41 @@ public class TuitionManager {
         }
     }
 
+    /**
+     * Adds an international student to the roster
+     * @param st - the rest of the tokens
+     */
     public static void addInternationalStudent(StringTokenizer st) {
+        int numRequiredTokens = 2;
+        int minNumOfCredits = 12;
+        Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
+        // student profile could not be created
+        if(studentProfile == null)
+            return;
+
+        // trying to get the number of credits
+        try{
+            int numCredits = validateCredits(st);
+
+            if(numCredits == invalid){
+                return; // not a valid number of credits
+            }
+
+            // international students must take at least 12 credits
+            if(numCredits < minNumOfCredits){
+                System.out.println("International students must enroll at least 12 credits.");
+                return;
+            }
+
+            boolean statusAbroad = getStudyAbroadStatus(st);
+
+            International internationalStudent = new International(studentProfile, numCredits, statusAbroad); // creating student
+            validateAddStudent(internationalStudent); // adding student to roster
+        }catch(NumberFormatException e) {
+            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            return;
+        }
     }
 
     public static void removeStudent(StringTokenizer st) {
