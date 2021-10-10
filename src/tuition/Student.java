@@ -14,7 +14,7 @@ public class Student {
     public static int FREE_CREDIT_LIMIT = 16;
 
     private Profile profile;
-    private int creditHours;
+    public int creditHours;
     public double tuition;
     public double payments;
     //public double fees; dont think we need this. What do you think?
@@ -29,7 +29,7 @@ public class Student {
         this.profile = profile;
         this.creditHours = creditHours;
         this.tuition = 0;
-        this.payment = 0;
+        this.payments = 0;
         this.lastPaymentDate = null;
     }
 
@@ -46,14 +46,14 @@ public class Student {
      * @return the tuition of this student before making any payments
      */
     public double calcTuition(){
-
+        return 0;
     }
 
     /**
      * @param paymentAmount - the amount of the payment being made
      */
     public void makePayment(double paymentAmount){
-        this.payment += paymentAmount;
+        this.payments += paymentAmount;
     }
 
     /**

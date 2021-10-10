@@ -21,7 +21,7 @@ public class TriState extends NonResident{
         double tuition = 0.0;
 
         if (this.creditHours < PART_TIME_CREDIT_LIMIT){ // Tuition if Tri State Student is part time
-            tuition = PER_CREDIT_NONRESIDENT_TUITION_RATE*this.creditHours + PART_TIME_UNIV_FEE_PERCENTAGE*FULLTIME_UNIV_FEE;
+            tuition = PER_CREDIT_NONRESIDENT_TUITION_RATE*this.creditHours + PART_TIME_UNIV_FEE_PERCENTAGE*FULL_TIME_UNIV_FEE;
         }
         else if (this.creditHours > FREE_CREDIT_LIMIT){ // Tuition if Full Time Tri State Student with above 16 credits
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE +
