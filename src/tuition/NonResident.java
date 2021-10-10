@@ -13,20 +13,19 @@ public class NonResident extends Student {
 
     public NonResident(Profile profile, int creditHours) {
         super(profile, creditHours);
-        this.tuition = this.calcTuition();
+        this.tuition = this.tuitionDue();
         this.payments = 0;
         this.lastPaymentDate = null;
     }
 
     @Override
     /**
-     * calculates and returns the student's tuition before any payments
-     * @return the tuition of the student before any payments
+     * calculates and sets the tuition due for this student
      */
-    public double calcTuition(){
+    public void tuitionDue(){
         double tuition = 0.0;
         if (this.creditHours < PART_TIME_CREDIT_LIMIT){ // Tuition if Non Resident Student is part time
-            tuition = PER_CREDIT_NONRESIDENT_TUITION_RATE*this.creditHours + PART_TIME_UNIV_FEE_PERCENTAGE*FULLTIME_UNIV_FEE;
+            tuition = PER_CREDIT_NONRESIDENT_TUITION_RATE*this.creditHours + PART_TIME_UNIV_FEE_PERCENTAGE*FULL_TIME_UNIV_FEE;
         }
         else if (this.creditHours > FREE_CREDIT_LIMIT){ // Tuition if Full Time Non Resident Student with above 16 credits
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE +
@@ -35,14 +34,6 @@ public class NonResident extends Student {
         else{ // Tuition if Full Time Non Resident Student is taking 12-16 credits
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE;
         }
-        return tuition;
-    }
-
-    @Override
-    /**
-     * calculates and sets the tuition due for this student
-     */
-    public void tuitionDue(){
-        this.tuition = this.calcTuition() - this.payments;
+        this.tuition = tuition;
     }
 }

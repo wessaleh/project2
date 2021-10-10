@@ -14,12 +14,19 @@ public class International extends NonResident{
         this.lastPaymentDate = null;
     }
 
+    /**
+     * sets studying abroad status
+     * @param studyingAbroad - a boolean indicating if the student is studying abroad or not
+     */
+    public void setStudyingAbroad(boolean studyingAbroad){
+        this.studyingAbroad = studyingAbroad;
+    }
+
     @Override
     /**
-     * calculates and returns the student's tuition before any payments
-     * @return the tuition of the student before any payments
+     * calculates and sets the tuition due for this student
      */
-    public double calcTuition(){
+    public void tuitionDue(){
         double tuition = 0.0;
         if (this.creditHours <= PART_TIME_CREDIT_LIMIT){ // Tuition if Studying Abroad (they can only take a max of 12 credits)
             tuition = FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
@@ -31,14 +38,6 @@ public class International extends NonResident{
         else{ // Tuition if International Student is taking 12 - 16 credits
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
         }
-        return tuition;
-    }
-
-    @Override
-    /**
-     * calculates and sets the tuition due for this student
-     */
-    public void tuitionDue(){
-        this.tuition = this.calcTuition() - this.payments;
+        this.tuition = tuition;
     }
 }
