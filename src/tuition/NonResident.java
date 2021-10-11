@@ -3,6 +3,7 @@ package tuition;
 /**
  * NonResident class defines the basic data for a non resident student.
  * Parent class of International and TriState classes.
+ * Subclass of Student
  * @author Wesam Saleh, Najibullah Assadullah
  */
 
@@ -35,5 +36,14 @@ public class NonResident extends Student {
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE;
         }
         this.tuition = tuition;
+    }
+
+    @Override
+    /**
+     * Converts a NonResident student's info to a string
+     * @return a string containing a Resident's information
+     */
+    public String toString(){
+        return super.toString() + ":non-resident";
     }
 }

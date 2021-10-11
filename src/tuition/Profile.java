@@ -2,7 +2,7 @@ package tuition;
 
 /**
  * The profile class defines the data for a student
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 public class Profile {

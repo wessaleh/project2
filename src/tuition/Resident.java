@@ -2,6 +2,7 @@ package tuition;
 
 /**
  * Resident class defines the basic data for a Resident student.
+ * Subclass of Student
  * @author Wesam Saleh, Najibullah Assadullah
  */
 
@@ -34,5 +35,14 @@ public class Resident extends Student{
             tuition = FULL_TIME_RESIDENT_TUITION + FULL_TIME_UNIV_FEE;
         }
         this.tuition = tuition;
+    }
+
+    @Override
+    /**
+     * Converts a Resident student's info to a string
+     * @return a string containing a Resident's information
+     */
+    public String toString(){
+        return super.toString() + ":resident";
     }
 }

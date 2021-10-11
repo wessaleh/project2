@@ -72,7 +72,24 @@ public class Student {
 
     }
 
+    @Override
+    /**
+     * Converts a Student's info to a string
+     * @return a string containing a Student's information
+     */
     public String toString(){
+        String toReturn;
+        if (this.lastPaymentDate == null){
+            toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
+                    " credit hours:tuition due:" + this.tuition + ":total payment:" + this.payments +
+                    "last payment date: --/--/----";
+        }
+        else{
+            toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
+                    " credit hours:tuition due:" + this.tuition + ":total payment:" + this.payments +
+                    "last payment date: " + this.lastPaymentDate.toString;
+        }
+        return toReturn;
 
     }
 }

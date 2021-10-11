@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 /**
  * This class stores all information for a date of the form "mm/dd/yy".
  * It can also check if the date is valid per certain specifications.
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 public class Date implements Comparable<Date>{

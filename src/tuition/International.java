@@ -1,5 +1,10 @@
 package tuition;
 
+/**
+ * International class defines the basic data for an International student.
+ * Subclass of NonResident
+ * @author Wesam Saleh, Najibullah Assadullah
+ */
 public class International extends NonResident{
 
     private static int INTERNATIONAL_ADDITIONAL_FEE = 2650;
@@ -39,5 +44,14 @@ public class International extends NonResident{
             tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
         }
         this.tuition = tuition;
+    }
+
+    @Override
+    /**
+     * Converts an International student's info to a string
+     * @return a string containing a TriState student's information
+     */
+    public String toString(){
+        return super.toString() + ":international"
     }
 }

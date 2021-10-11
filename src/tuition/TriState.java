@@ -1,5 +1,10 @@
 package tuition;
 
+/**
+ * TriState class defines the basic data for a student living in the tri state area.
+ * Subclass of NonResident
+ * @author Wesam Saleh, Najibullah Assadullah
+ */
 public class TriState extends NonResident{
 
     private static int NY_DISCOUNT = 4000;
@@ -47,5 +52,19 @@ public class TriState extends NonResident{
         }
 
         this.tuition = tuition;
+    }
+
+    @Override
+    /**
+     * Converts a TriState student's info to a string
+     * @return a string containing a TriState student's information
+     */
+    public String toString(){
+        if (this.state.equals("NY")){
+            return super.toString() + "(tri-state):NY"
+        }
+        else{
+            return super.toString() + "(tri-state):CT";
+        }
     }
 }

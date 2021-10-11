@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 /**
  * Handles all the user commands entered into the console.
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 public class TuitionManager {
