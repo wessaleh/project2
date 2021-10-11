@@ -22,17 +22,14 @@ public class TriState extends NonResident{
      * calculates and sets the tuition due for this student
      */
     public void tuitionDue(){
-        double tuition = 0.0;
         super.tuitionDue();
 
         if (this.state.equals("CT") && this.creditHours >= PART_TIME_CREDIT_LIMIT){
-            tuition -= CT_DISCOUNT;
+            this.tuition -= CT_DISCOUNT;
         }
         else if (this.state.equals("NY") && this.creditHours >= PART_TIME_CREDIT_LIMIT){
-            tuition -= NY_DISCOUNT;
+            this.tuition -= NY_DISCOUNT;
         }
-
-        this.tuition = tuition;
     }
 
     @Override

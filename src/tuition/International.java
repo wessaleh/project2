@@ -29,13 +29,12 @@ public class International extends NonResident{
      * calculates and sets the tuition due for this student
      */
     public void tuitionDue(){
-        double tuition = 0.0;
         super.tuitionDue();
         if (studyingAbroad){ // Tuition if Studying Abroad
-            tuition = FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
+            this.tuition = FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
         }
         else{
-            this.tuition += =INTERNATIONAL_ADDITIONAL_FEE;
+            this.tuition += INTERNATIONAL_ADDITIONAL_FEE;
         }
     }
 
@@ -46,7 +45,7 @@ public class International extends NonResident{
      */
     public String toString(){
         if (studyingAbroad){
-            return super.toString() + ":international:studying abroad"
+            return super.toString() + ":international:studying abroad";
         }
         else{
             return super.toString() + ":international";
