@@ -18,6 +18,14 @@ public class TriState extends NonResident{
      * @return the tuition of the student before any payments
      */
     public double calcTuition(){
+
+    }
+
+    @Override
+    /**
+     * calculates and sets the tuition due for this student
+     */
+    public void tuitionDue(){
         double tuition = 0.0;
 
         if (this.creditHours < PART_TIME_CREDIT_LIMIT){ // Tuition if Tri State Student is part time
@@ -38,14 +46,6 @@ public class TriState extends NonResident{
             tuition -= NY_DISCOUNT;
         }
 
-        return tuition;
-    }
-
-    @Override
-    /**
-     * calculates and sets the tuition due for this student
-     */
-    public void tuitionDue(){
-        this.tuition = this.calcTuition() - this.payments;
+        this.tuition = tuition;
     }
 }

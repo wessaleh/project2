@@ -16,8 +16,8 @@ public class Student {
     private Profile profile;
     public int creditHours;
     public double tuition;
+    public double finAid;
     public double payments;
-    //public double fees; dont think we need this. What do you think?
     public Date lastPaymentDate;
 
     /**
@@ -42,14 +42,23 @@ public class Student {
     }
 
     /**
-     * Do nothing method for calculating the student's tuition prior to any payments being made
+     * Returns the student's balance after payments are made
      * @return the tuition of this student before making any payments
      */
-    public double calcTuition(){
-        return 0;
+    public double getBalance(){
+        return this.tuition - this.payments - this.finAid;
     }
 
     /**
+     * Sets the financial aid amount
+     * @param finAidAmount - the financial aid amount
+     */
+    public void setFinAid(double finAidAmount){
+        this.finAid = finAidAmount;
+    }
+
+    /**
+     * Allows the student to make a payment
      * @param paymentAmount - the amount of the payment being made
      */
     public void makePayment(double paymentAmount){
@@ -60,6 +69,10 @@ public class Student {
      * Do nothing method for calculating the tuition due
      */
     public void tuitionDue() {
+
+    }
+
+    public String toString(){
 
     }
 }
