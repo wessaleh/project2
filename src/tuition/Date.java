@@ -119,6 +119,11 @@ public class Date implements Comparable<Date>{
         return false;
     }
 
+    /**
+     * Compares a given date to this date
+     * @param date - the date to compare
+     * @return a numerical value indicating the comparison
+     */
     @Override
     public int compareTo(Date date) {
         if(this.year - date.year != 0){ // check year first
@@ -132,141 +137,12 @@ public class Date implements Comparable<Date>{
         }
     }
 
+    /**
+     * Converts this date to a string
+     * @return string representation of the date
+     */
     @Override
     public String toString() {
         return this.month + "/" + this.day + "/" + this.year;
-    }
-
-    /**
-     * testbed main
-     * @param args - command line arguments
-     */
-    public static void main(String[] args) {
-        Date wrongDay = new Date("12/00/2000");
-        Date wrongDay2 = new Date("12/32/2000");
-        Date wrongMonth = new Date("00/27/2000");
-        Date wrongMonth2 = new Date("13/27/2000");
-        Date futureDate = new Date("12/27/2021");
-        Date notLeapYear = new Date("2/29/2001");
-        Date leapYear = new Date("2/29/2004");
-
-        Date correctDate = new Date("12/27/2000");
-        Date todaysDate = new Date();
-        Date todaysDate2 = new Date();
-
-        System.out.println("Test 1: Should determine the next 6 dates to not be valid => ");
-        if (wrongDay.isValid()){
-            System.out.println("1) failed");
-        }
-        else{
-            System.out.println("1) passed");
-        }
-        if (wrongDay2.isValid()){
-            System.out.println("2) failed");
-        }
-        else{
-            System.out.println("2) passed");
-        }
-        if (wrongMonth.isValid()){
-            System.out.println("3) failed");
-        }
-        else{
-            System.out.println("3) passed");
-        }
-        if (wrongMonth2.isValid()){
-            System.out.println("4) failed");
-        }
-        else{
-            System.out.println("4) passed");
-        }
-        if (futureDate.isValid()){
-            System.out.println("5) failed");
-        }
-        else{
-            System.out.println("5) passed");
-        }
-        if (notLeapYear.isValid()){
-            System.out.println("6) failed");
-        }
-        else{
-            System.out.println("6) passed");
-        }
-
-
-        System.out.println("Test 2: Should determine the next 3 dates to be valid => ");
-        if (correctDate.isValid()){
-            System.out.println("1) passed");
-        }
-        else{
-            System.out.println("1) failed");
-        }
-        if (leapYear.isValid()){
-            System.out.println("2) passed");
-        }
-        else{
-            System.out.println("2) failed");
-        }
-        if (todaysDate.isValid()){
-            System.out.println("3) passed");
-        }
-        else{
-            System.out.println("3) failed");
-        }
-
-        System.out.print("Test 3: Should print today's date => ");
-        System.out.println(todaysDate);
-
-        System.out.println("Test 4: Should determine the next 2 as leap years => ");
-        if (isLeapYear(2004)){
-            System.out.println("1) passed");
-        }
-        else{
-            System.out.println("1) failed");
-        }
-        if (isLeapYear(2000)){
-            System.out.println("2) passed");
-        }
-        else{
-            System.out.println("2) failed");
-        }
-
-        System.out.println("Test 5: Should determine the next 2 as not leap years => ");
-        if (isLeapYear(2005)){
-            System.out.println("1) failed");
-        }
-        else{
-            System.out.println("1) passed");
-        }
-        if (isLeapYear(1900)){
-            System.out.println("2) failed");
-        }
-        else{
-            System.out.println("2) passed");
-        }
-
-        System.out.println("Test 6: Should determine the two years are equal => ");
-        if (todaysDate.compareTo(todaysDate2) == 0){
-            System.out.println("1) passed");
-        }
-        else{
-            System.out.println("2) failed");
-        }
-
-        System.out.println("Test 7: Should determine the date occurred before today's date => ");
-        if (todaysDate.compareTo(correctDate) > 0){
-            System.out.println("1) passed");
-        }
-        else{
-            System.out.println("2) failed");
-        }
-
-        System.out.println("Test 8: Should convert Dec to 12 => ");
-        if (convertMonthCodeToNumber("Dec").equals("12")){
-            System.out.println("1) passed");
-        }
-        else{
-            System.out.println("2) failed");
-        }
-
     }
 }

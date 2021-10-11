@@ -1,5 +1,11 @@
 package tuition;
 
+/**
+ * Roster class keeps track of a list of students
+ * Clients can add, remove, change students and their status
+ * @author Wesam Saleh
+ */
+
 public class Roster {
     private final int INVALID = -1;
     private Student[] roster;
@@ -32,7 +38,7 @@ public class Roster {
             }
         }
 
-        return -1; //student was not found
+        return INVALID; //student was not found
     }
 
     /**
@@ -102,6 +108,7 @@ public class Roster {
     private Student[] sortByPaymentDates() {
         Student[] sortedRoster = new Student[size];
 
+        // Copying only students who have made payments
         int rosterIndex = 0;
         for(int i = 0; i < size; i++){
             if(this.roster[i] == null || this.roster[i].lastPaymentDate == null){
@@ -243,7 +250,7 @@ public class Roster {
      * Sets the financial aid amount of a student
      * @param student - the student to set
      * @param finAidAmount - the financial aid amount to set
-     * @return message indicating whether or not the financial aid was given
+     * @return message indicating whether the financial aid was given
      */
     public String setFinancialAid(Student student, double finAidAmount) {
         int studentIndex = this.find(student);
@@ -257,7 +264,7 @@ public class Roster {
         int fullTimeCreditHours = 12;
 
         if(this.roster[studentIndex].creditHours < fullTimeCreditHours){
-            return "Parttime student doesn't qualify for the award.";
+            return "Part-time student doesn't qualify for the award.";
         }else if(this.roster[studentIndex].finAid > 0){
             return "Awarded once already.";
         }

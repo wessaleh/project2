@@ -1,7 +1,11 @@
 package unitTesting;
 
-import tuition.Date;
+/**
+ * Test for Date class
+ * @author Wesam Saleh
+ */
 
+import tuition.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DateTest {

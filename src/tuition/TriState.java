@@ -7,20 +7,26 @@ package tuition;
  */
 public class TriState extends NonResident{
 
-    private static int NY_DISCOUNT = 4000;
-    private static int CT_DISCOUNT = 5000;
+    private static final int NY_DISCOUNT = 4000;
+    private static final int CT_DISCOUNT = 5000;
 
-    String state;
+    private final String state;
 
+    /**
+     * Constructor for tristate class
+     * @param profile - the profile of the student
+     * @param creditHours - number of credits the student is taking
+     * @param stateCode - the student's state code (NY or CT)
+     */
     public TriState(Profile profile, int creditHours, String stateCode){
         super(profile, creditHours);
         this.state = stateCode;
     }
 
-    @Override
     /**
      * calculates and sets the tuition due for this student
      */
+    @Override
     public void tuitionDue(){
         super.tuitionDue();
 
@@ -32,11 +38,11 @@ public class TriState extends NonResident{
         }
     }
 
-    @Override
     /**
      * Converts a TriState student's info to a string
      * @return a string containing a TriState student's information
      */
+    @Override
     public String toString(){
         if (this.state.equals("NY")){
             return super.toString() + "(tri-state):NY";

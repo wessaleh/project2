@@ -14,6 +14,8 @@ public class Student {
     public static int FULL_TIME_UNIV_FEE = 3268;
     public static int PART_TIME_CREDIT_LIMIT = 12;
     public static int FREE_CREDIT_LIMIT = 16;
+    private static final int NUM_DECIMAL_PLACES = 2;
+    private static final int NUM_INT_PLACES = 1;
 
     private Profile profile;
     public int creditHours;
@@ -83,8 +85,8 @@ public class Student {
     public String toString(){
         String toReturn;
         DecimalFormat money_Format = new DecimalFormat("###,###.00");
-        money_Format.setMinimumFractionDigits(2);
-        money_Format.setMinimumIntegerDigits(1);
+        money_Format.setMinimumFractionDigits(NUM_DECIMAL_PLACES);
+        money_Format.setMinimumIntegerDigits(NUM_INT_PLACES);
 
         if (this.lastPaymentDate == null){
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
