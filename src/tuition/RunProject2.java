@@ -2,7 +2,7 @@ package tuition;
 
 /**
  * Driver for Tuition manager class
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 public class RunProject2 {

@@ -2,7 +2,7 @@ package tuition;
 
 /**
  * Major enums
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 public enum Major {
     CS,
