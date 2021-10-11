@@ -10,7 +10,7 @@ public class International extends NonResident{
     private static final int INTERNATIONAL_ADDITIONAL_FEE = 2650;
     private static final int MAX_CREDITS_STUDYING_ABROAD = 12;
 
-    boolean studyingAbroad;
+    private boolean studyingAbroad;
 
     public International(Profile profile, int creditHours, boolean studyingAbroad) {
         super(profile, creditHours);
