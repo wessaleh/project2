@@ -209,7 +209,7 @@ public class Date implements Comparable<Date>{
         }
 
         System.out.print("Test 3: Should print today's date => ");
-        System.out.println(todaysDate.toString());
+        System.out.println(todaysDate);
 
         System.out.println("Test 4: Should determine the next 2 as leap years => ");
         if (isLeapYear(2004)){

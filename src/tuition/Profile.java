@@ -6,8 +6,8 @@ package tuition;
  */
 
 public class Profile {
-    private String name;
-    private Major major; // 5 majors and 2-characters each: CS, IT, BA, EE, ME
+    private final String name;
+    private final Major major; // 5 majors and 2-characters each: CS, IT, BA, EE, ME
 
     /**
      * Constructor for Profile of a student

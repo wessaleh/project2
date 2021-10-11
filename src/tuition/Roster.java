@@ -1,7 +1,7 @@
 package tuition;
 
 public class Roster {
-    private final int invalidIndex = -1;
+    private final int INVALID = -1;
     private Student[] roster;
     private int size; //keep track of the number of students in the roster
 
@@ -71,12 +71,64 @@ public class Roster {
     }
 
     /**
+     * Sorts the roster by names
+     */
+    private void sortByNames() {
+        int lesserNameIndex;
+
+        // selection sort
+        for(int i = 0; i < size - 1; i++){
+            lesserNameIndex = i;
+
+            for(int j = i+1; j < size; j++){
+                String currentStudentName = this.roster[j].getProfile().getName();
+                String lesserStudentName = this.roster[lesserNameIndex].getProfile().getName();
+
+                if(currentStudentName.compareTo(lesserStudentName) < 0){
+                    lesserNameIndex = j;
+                }
+            }
+
+            // swapping two albums to put them in order
+            Student temp = this.roster[i];
+            this.roster[i] = this.roster[lesserNameIndex];
+            this.roster[lesserNameIndex] = temp;
+        }
+    }
+
+    /**
+     * Sorts the roster by payment dates
+     */
+    private void sortByPaymentDates() {
+        int earlierPaymentDateIndex;
+
+        // selection sort
+        for(int i = 0; i < size - 1; i++){
+            earlierPaymentDateIndex = i;
+
+            for(int j = i+1; j < size; j++){
+                Date currentStudentPaymentDate = this.roster[j].lastPaymentDate;
+                Date earlierStudentPaymentDate = this.roster[earlierPaymentDateIndex].lastPaymentDate;
+
+                if(currentStudentPaymentDate.compareTo(earlierStudentPaymentDate) < 0){
+                    earlierPaymentDateIndex = j;
+                }
+            }
+
+            // swapping two albums to put them in order
+            Student temp = this.roster[i];
+            this.roster[i] = this.roster[earlierPaymentDateIndex];
+            this.roster[earlierPaymentDateIndex] = temp;
+        }
+    }
+
+    /**
      * Adds a student to the roster
      * @param student - the student to add
      * @return true if the student was added, false if not
      */
     public boolean add(Student student) {
-        boolean rosterHasStudent = this.find(student) != invalidIndex;
+        boolean rosterHasStudent = this.find(student) != INVALID;
 
         // if student is already in roster, they should not be added
         if(rosterHasStudent){
@@ -102,7 +154,7 @@ public class Roster {
      */
     public boolean remove(Student student) {
         int studentIndex = this.find(student);
-        boolean isNotInRoster = studentIndex == invalidIndex;
+        boolean isNotInRoster = studentIndex == INVALID;
 
         // should not remove a student that is not in the roster
         if(isNotInRoster){
@@ -119,4 +171,24 @@ public class Roster {
         return true;
     }
 
+    /**
+     * Prints the roster
+     */
+    public void printRoster() {
+
+    }
+
+    /**
+     * Prints the roster by names
+     */
+    public void printRosterByNames() {
+        this.sortByNames();
+    }
+
+    /**
+     * Prints the roster by payment dates
+     */
+    public void printRosterByPaymentDates() {
+        this.sortByPaymentDates();
+    }
 }
