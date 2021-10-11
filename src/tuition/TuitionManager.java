@@ -2,6 +2,7 @@ package tuition;
 
 import java.util.InputMismatchException;
 import java.lang.NumberFormatException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -17,6 +18,7 @@ public class TuitionManager {
     private static final int REQUIRED_TOKENS = 2;
     private static final int MIN_NUM_CREDITS_INTERNATIONAL = 12;
     private static final int REQUIRED_TOKENS_TRISTATE = 4;
+    private static final int MAX_FIN_AID_AMOUNT = 10000;
     private static Roster studentRoster;
 
     /**
@@ -342,16 +344,78 @@ public class TuitionManager {
         System.out.println("Calculation completed.");
     }
 
+    /**
+     * Pays the tuition of a student
+     * @param st - the rest of the tokens
+     */
     public static void payTuition(StringTokenizer st) {
+        int dummyCredits = 0;
+        Profile studentProfile = createStudentProfile(st, 2);
 
+        if(st.hasMoreTokens()){
+            double paymentAmount = Double.parseDouble(st.nextToken());
+            try {
+                Date paymentDate = new Date(st.nextToken());
+                if(!paymentDate.isValid()){
+                    System.out.println("Payment date invalid.");
+                    return;
+                }else if(paymentAmount <= 0){
+                    System.out.println("Invalid amount.");
+                    return;
+                }
+
+                Student student = new Student(studentProfile, dummyCredits);
+                if(studentRoster.makeStudentPayment(student, paymentAmount, paymentDate)){
+                    System.out.println("Payment applied.");
+                    return;
+                }
+
+                System.out.println("Amount is greater than amount due.");
+            }catch(NoSuchElementException e){
+                System.out.println("Invalid amount.");
+            }
+        }else{
+            System.out.println("Payment amount missing.");
+        }
     }
 
+    /**
+     * Sets the study abroad status of a student
+     * @param st - the rest of the tokens
+     */
     public static void setStudyAbroadStatus(StringTokenizer st) {
+        int dummyCredits = 0;
+        Profile studentProfile = createStudentProfile(st, 2);
+        Student studentToSet = new Student(studentProfile, dummyCredits);
 
+        if(studentRoster.setStudyAbroadStatus(studentToSet)){
+            System.out.println("Tuition updated.");
+            return;
+        }
+
+        System.out.println("Couldn't find the international student.");
     }
 
+    /**
+     * Sets the financial aid amount of a student
+     * @param st - the rest of the tokens
+     */
     public static void setFinancialAidAmount(StringTokenizer st) {
+        int dummyCredits = 0;
+        Profile studentProfile = createStudentProfile(st, 2);
+        Student studentToSet = new Student(studentProfile, dummyCredits);
 
+        try {
+            double finAidAmount = Double.parseDouble(st.nextToken());
+            if (finAidAmount < 0 || finAidAmount > MAX_FIN_AID_AMOUNT) {
+                System.out.println("Invalid amount.");
+                return;
+            }
+
+            System.out.println(studentRoster.setFinancialAid(studentToSet, finAidAmount));
+        }catch(NoSuchElementException e){
+            System.out.println("Missing the amount.");
+        }
     }
 
     /**

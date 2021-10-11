@@ -63,8 +63,9 @@ public class Student {
      * Allows the student to make a payment
      * @param paymentAmount - the amount of the payment being made
      */
-    public void makePayment(double paymentAmount){
+    public void makePayment(double paymentAmount, Date paymentDate){
         this.payments += paymentAmount;
+        this.lastPaymentDate = paymentDate;
     }
 
     /**
@@ -87,12 +88,12 @@ public class Student {
 
         if (this.lastPaymentDate == null){
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + money_Format.format(this.tuition) + ":total payment:" + money_Format.format(this.payments) +
+                    " credit hours:tuition due:" + money_Format.format(this.getBalance()) + ":total payment:" + money_Format.format(this.payments) +
                     ":last payment date: --/--/--";
         }
         else{
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + money_Format.format(this.tuition) + ":total payment:" + money_Format.format(this.payments) +
+                    " credit hours:tuition due:" + money_Format.format(this.getBalance()) + ":total payment:" + money_Format.format(this.payments) +
                     ":last payment date: " + this.lastPaymentDate.toString();
         }
         return toReturn;

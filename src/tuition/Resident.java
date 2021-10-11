@@ -1,5 +1,7 @@
 package tuition;
 
+import java.text.DecimalFormat;
+
 /**
  * Resident class defines the basic data for a Resident student.
  * Subclass of Student
@@ -40,6 +42,11 @@ public class Resident extends Student{
      * @return a string containing a Resident's information
      */
     public String toString(){
-        return super.toString() + ":resident";
+        DecimalFormat money_Format = new DecimalFormat("###,###.00");
+        money_Format.setMinimumFractionDigits(2);
+        money_Format.setMinimumIntegerDigits(1);
+
+        return this.finAid == 0 ? super.toString() + ":resident" : super.toString() + ":resident" + ":financial aid " +
+                money_Format.format(this.finAid);
     }
 }

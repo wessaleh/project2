@@ -99,16 +99,36 @@ public class Roster {
     /**
      * Sorts the roster by payment dates
      */
-    private void sortByPaymentDates() {
+    private Student[] sortByPaymentDates() {
+        Student[] sortedRoster = new Student[size];
+
+        int rosterIndex = 0;
+        for(int i = 0; i < size; i++){
+            if(this.roster[i] == null || this.roster[i].lastPaymentDate == null){
+                continue;
+            }
+
+            sortedRoster[rosterIndex] = this.roster[i];
+            rosterIndex++;
+        }
+
         int earlierPaymentDateIndex;
 
         // selection sort
         for(int i = 0; i < size - 1; i++){
+            if(sortedRoster[i] == null){
+                break;
+            }
+
             earlierPaymentDateIndex = i;
 
             for(int j = i+1; j < size; j++){
-                Date currentStudentPaymentDate = this.roster[j].lastPaymentDate;
-                Date earlierStudentPaymentDate = this.roster[earlierPaymentDateIndex].lastPaymentDate;
+                if(sortedRoster[j] == null){
+                    break;
+                }
+
+                Date currentStudentPaymentDate = sortedRoster[j].lastPaymentDate;
+                Date earlierStudentPaymentDate = sortedRoster[earlierPaymentDateIndex].lastPaymentDate;
 
                 if(currentStudentPaymentDate.compareTo(earlierStudentPaymentDate) < 0){
                     earlierPaymentDateIndex = j;
@@ -116,10 +136,12 @@ public class Roster {
             }
 
             // swapping two albums to put them in order
-            Student temp = this.roster[i];
-            this.roster[i] = this.roster[earlierPaymentDateIndex];
-            this.roster[earlierPaymentDateIndex] = temp;
+            Student temp = sortedRoster[i];
+            sortedRoster[i] = sortedRoster[earlierPaymentDateIndex];
+            sortedRoster[earlierPaymentDateIndex] = temp;
         }
+
+        return sortedRoster;
     }
 
     /**
@@ -181,6 +203,70 @@ public class Roster {
     }
 
     /**
+     * Makes a payment for the given student
+     * @param student - the student to make a payment for
+     * @return true if payment is too much, false if not
+     */
+    public boolean makeStudentPayment(Student student, double paymentAmount, Date paymentDate) {
+        int studentIndex = this.find(student);
+        Student studentInRoster = this.roster[studentIndex];
+
+        if(paymentAmount > studentInRoster.getBalance()){
+            return false;
+        }
+
+        studentInRoster.makePayment(paymentAmount, paymentDate);
+        return true;
+    }
+
+    /**
+     * Sets the study abroad status of a student
+     * @param student - the student to set status
+     * @return true if student was found, false if not
+     */
+    public boolean setStudyAbroadStatus(Student student) {
+        int studentIndex = this.find(student);
+
+        if(studentIndex == INVALID){
+            return false;
+        }
+
+        if(this.roster[studentIndex] instanceof International){
+            ((International) this.roster[studentIndex]).setStudyingAbroad();
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Sets the financial aid amount of a student
+     * @param student - the student to set
+     * @param finAidAmount - the financial aid amount to set
+     * @return message indicating whether or not the financial aid was given
+     */
+    public String setFinancialAid(Student student, double finAidAmount) {
+        int studentIndex = this.find(student);
+
+        if(studentIndex == INVALID){
+            return "Student not in the roster.";
+        }else if(!(this.roster[studentIndex] instanceof Resident)){
+            return "Not a resident student.";
+        }
+
+        int fullTimeCreditHours = 12;
+
+        if(this.roster[studentIndex].creditHours < fullTimeCreditHours){
+            return "Parttime student doesn't qualify for the award.";
+        }else if(this.roster[studentIndex].finAid > 0){
+            return "Awarded once already.";
+        }
+
+        this.roster[studentIndex].setFinAid(finAidAmount);
+        return "Tuition updated.";
+    }
+
+    /**
      * Prints the roster
      */
     public void printRoster() {
@@ -227,13 +313,15 @@ public class Roster {
             return;
         }
 
-        this.sortByPaymentDates();
+        Student[] sortedRoster = this.sortByPaymentDates();
 
         System.out.println("* list of students made payments ordered by payment date **");
 
         for(int i = 0; i < size; i++){
-            if(this.roster[i].lastPaymentDate != null)
-                System.out.println(this.roster[i].toString());
+            if(sortedRoster[i] == null){
+                break;
+            }
+            System.out.println(sortedRoster[i].toString());
         }
 
         System.out.println("* end of roster **");

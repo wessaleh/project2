@@ -18,10 +18,16 @@ public class International extends NonResident{
 
     /**
      * sets studying abroad status
-     * @param studyingAbroad - a boolean indicating if the student is studying abroad or not
      */
-    public void setStudyingAbroad(boolean studyingAbroad){
-        this.studyingAbroad = studyingAbroad;
+    public void setStudyingAbroad(){
+        this.studyingAbroad = true;
+        this.payments = 0;
+        this.lastPaymentDate = null;
+        if(this.creditHours > 12){
+            this.creditHours = 12;
+        }
+
+        this.tuitionDue();
     }
 
     @Override

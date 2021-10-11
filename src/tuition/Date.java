@@ -83,6 +83,11 @@ public class Date implements Comparable<Date>{
             return false;
         }
 
+        // validating year
+        if(this.year != 2021){
+            return false;
+        }
+
         // validating month
         if(this.month < MINIMUM_MONTH_VALUE || this.month > NUMBER_OF_MONTHS_IN_A_YEAR)
             return false;
