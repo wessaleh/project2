@@ -3,7 +3,7 @@ package tuition;
 /**
  * Roster class keeps track of a list of students
  * Clients can add, remove, change students and their status
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 public class Roster {
