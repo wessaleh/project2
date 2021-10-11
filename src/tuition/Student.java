@@ -81,7 +81,9 @@ public class Student {
      */
     public String toString(){
         String toReturn;
-        DecimalFormat money_Format = new DecimalFormat("###,###.##");
+        DecimalFormat money_Format = new DecimalFormat("###,###.00");
+        money_Format.setDecimalSeperatorAlwaysShown(true);
+        money_Format.setMinimumFractionDigits(2);
 
 
         if (this.lastPaymentDate == null){
