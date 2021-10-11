@@ -45,7 +45,7 @@ public class International extends NonResident{
      */
     public String toString(){
         if (studyingAbroad){
-            return super.toString() + ":international:studying abroad";
+            return super.toString() + ":international:study abroad";
         }
         else{
             return super.toString() + ":international";
