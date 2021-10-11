@@ -19,15 +19,6 @@ public class TriState extends NonResident{
 
     @Override
     /**
-     * calculates and returns the student's tuition before any payments
-     * @return the tuition of the student before any payments
-     */
-    public double calcTuition(){
-
-    }
-
-    @Override
-    /**
      * calculates and sets the tuition due for this student
      */
     public void tuitionDue(){
@@ -61,7 +52,7 @@ public class TriState extends NonResident{
      */
     public String toString(){
         if (this.state.equals("NY")){
-            return super.toString() + "(tri-state):NY"
+            return super.toString() + "(tri-state):NY";
         }
         else{
             return super.toString() + "(tri-state):CT";

@@ -14,9 +14,6 @@ public class International extends NonResident{
     public International(Profile profile, int creditHours, boolean studyingAbroad) {
         super(profile, creditHours);
         this.studyingAbroad = studyingAbroad;
-        this.tuition = this.calcTuition();
-        this.payments = 0;
-        this.lastPaymentDate = null;
     }
 
     /**
@@ -52,6 +49,6 @@ public class International extends NonResident{
      * @return a string containing a TriState student's information
      */
     public String toString(){
-        return super.toString() + ":international"
+        return super.toString() + ":international";
     }
 }

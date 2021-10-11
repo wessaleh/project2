@@ -13,9 +13,6 @@ public class Resident extends Student{
 
     public Resident(Profile profile, int creditHours) {
         super(profile, creditHours);
-        this.tuition = this.tuitionDue();
-        this.payments = 0;
-        this.lastPaymentDate = null;
     }
 
     @Override

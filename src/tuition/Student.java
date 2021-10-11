@@ -87,7 +87,7 @@ public class Student {
         else{
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
                     " credit hours:tuition due:" + this.tuition + ":total payment:" + this.payments +
-                    "last payment date: " + this.lastPaymentDate.toString;
+                    "last payment date: " + this.lastPaymentDate.toString();
         }
         return toReturn;
 

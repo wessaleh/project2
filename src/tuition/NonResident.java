@@ -14,9 +14,6 @@ public class NonResident extends Student {
 
     public NonResident(Profile profile, int creditHours) {
         super(profile, creditHours);
-        this.tuition = 0;
-        this.payments = 0;
-        this.lastPaymentDate = null;
     }
 
     @Override
