@@ -350,15 +350,24 @@ public class TuitionManager {
 
     }
 
+    /**
+     * prints the roster
+     */
     public static void printRoster() {
-
+        studentRoster.printRoster();
     }
 
+    /**
+     * prints the roster by names
+     */
     public static void printRosterByNames() {
-
+        studentRoster.printRosterByNames();
     }
 
+    /**
+     * prints the roster by payment dates
+     */
     public static void printRosterByPaymentDates() {
-
+        studentRoster.printRosterByPaymentDates();
     }
 }

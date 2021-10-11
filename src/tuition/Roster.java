@@ -175,20 +175,58 @@ public class Roster {
      * Prints the roster
      */
     public void printRoster() {
+        if(this.size == 0) {
+            System.out.println("Student roster is empty!");
+            return;
+        }
 
+        System.out.println("* list of students in the roster **");
+
+        for(int i = 0; i < size; i++){
+            System.out.println(this.roster[i].toString());
+        }
+
+        System.out.println("* end of roster **");
     }
 
     /**
      * Prints the roster by names
      */
     public void printRosterByNames() {
+        if(this.size == 0) {
+            System.out.println("Student roster is empty!");
+            return;
+        }
+
         this.sortByNames();
+
+        System.out.println("* list of students ordered by name **");
+
+        for(int i = 0; i < size; i++){
+            System.out.println(this.roster[i].toString());
+        }
+
+        System.out.println("* end of roster **");
     }
 
     /**
      * Prints the roster by payment dates
      */
     public void printRosterByPaymentDates() {
+        if(this.size == 0) {
+            System.out.println("Student roster is empty!");
+            return;
+        }
+
         this.sortByPaymentDates();
+
+        System.out.println("* list of students made payments ordered by payment date **");
+
+        for(int i = 0; i < size; i++){
+            if(this.roster[i].lastPaymentDate != null)
+                System.out.println(this.roster[i].toString());
+        }
+
+        System.out.println("* end of roster **");
     }
 }
