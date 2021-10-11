@@ -2,7 +2,6 @@ package tuition;
 
 import java.util.InputMismatchException;
 import java.lang.NumberFormatException;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -13,7 +12,6 @@ import java.util.StringTokenizer;
 
 public class TuitionManager {
     private static int invalid = -1;
-
     StringTokenizer st;
     static Roster studentRoster;
 
@@ -236,7 +234,7 @@ public class TuitionManager {
      * Adds a non-resident student to the roster
      * @param st - the rest of the tokens
      */
-    public static void addNonResidentStudent(StringTokenizer st) {
+    public void addNonResidentStudent(StringTokenizer st) {
         int numRequiredTokens = 2;
         Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
@@ -263,7 +261,7 @@ public class TuitionManager {
      * Adds a tri-state student to the roster
      * @param st - the rest of the tokens
      */
-    public static void addTriStateStudent(StringTokenizer st) {
+    public void addTriStateStudent(StringTokenizer st) {
         int numRequiredTokens = 4;
         Profile studentProfile = createStudentProfile(st, numRequiredTokens);
 
@@ -294,7 +292,7 @@ public class TuitionManager {
      * Adds an international student to the roster
      * @param st - the rest of the tokens
      */
-    public static void addInternationalStudent(StringTokenizer st) {
+    public void addInternationalStudent(StringTokenizer st) {
         int numRequiredTokens = 2;
         int minNumOfCredits = 12;
         Profile studentProfile = createStudentProfile(st, numRequiredTokens);
@@ -327,8 +325,24 @@ public class TuitionManager {
         }
     }
 
-    public static void removeStudent(StringTokenizer st) {
+    /**
+     * Removes a student from the roster
+     * @param st - the rest of the tokens
+     */
+    public void removeStudent(StringTokenizer st) {
+        int dummyCredits = 0;
 
+        String studentName = st.nextToken();
+        Major studentMajor = convertStringToMajorCode(st.nextToken());
+
+        Profile studentProfile = new Profile(studentName, studentMajor);
+        Student studentToRemove = new Student(studentProfile, dummyCredits);
+
+        if(studentRoster.remove(studentToRemove)){
+            System.out.println("Student removed from the roster");
+        }else{
+            System.out.println("Student is not in the roster");
+        }
     }
 
     public static void calculateStudentTuition(StringTokenizer st) {
