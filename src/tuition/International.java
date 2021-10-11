@@ -30,17 +30,13 @@ public class International extends NonResident{
      */
     public void tuitionDue(){
         double tuition = 0.0;
-        if (this.creditHours <= PART_TIME_CREDIT_LIMIT){ // Tuition if Studying Abroad (they can only take a max of 12 credits)
+        super.tuitionDue();
+        if (studyingAbroad){ // Tuition if Studying Abroad
             tuition = FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
         }
-        else if (this.creditHours > FREE_CREDIT_LIMIT){ // Tuition if International Student is taking above 16 credits
-            tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE +
-                    PER_CREDIT_NONRESIDENT_TUITION_RATE*(this.creditHours - FREE_CREDIT_LIMIT);
+        else{
+            this.tuition += =INTERNATIONAL_ADDITIONAL_FEE;
         }
-        else{ // Tuition if International Student is taking 12 - 16 credits
-            tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE + INTERNATIONAL_ADDITIONAL_FEE;
-        }
-        this.tuition = tuition;
     }
 
     @Override
@@ -49,6 +45,11 @@ public class International extends NonResident{
      * @return a string containing a TriState student's information
      */
     public String toString(){
-        return super.toString() + ":international";
+        if (studyingAbroad){
+            return super.toString() + ":international:studying abroad"
+        }
+        else{
+            return super.toString() + ":international";
+        }
     }
 }

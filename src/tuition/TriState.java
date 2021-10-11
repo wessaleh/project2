@@ -23,22 +23,12 @@ public class TriState extends NonResident{
      */
     public void tuitionDue(){
         double tuition = 0.0;
+        super.tuitionDue();
 
-        if (this.creditHours < PART_TIME_CREDIT_LIMIT){ // Tuition if Tri State Student is part time
-            tuition = PER_CREDIT_NONRESIDENT_TUITION_RATE*this.creditHours + PART_TIME_UNIV_FEE_PERCENTAGE*FULL_TIME_UNIV_FEE;
-        }
-        else if (this.creditHours > FREE_CREDIT_LIMIT){ // Tuition if Full Time Tri State Student with above 16 credits
-            tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE +
-                    PER_CREDIT_NONRESIDENT_TUITION_RATE*(this.creditHours - FREE_CREDIT_LIMIT);
-        }
-        else{ // Tuition if Full Time Tri State Student is taking 12-16 credits
-            tuition = FULL_TIME_NONRESIDENT_TUITION + FULL_TIME_UNIV_FEE;
-        }
-
-        if (this.state.equals("CT")){
+        if (this.state.equals("CT") && this.creditHours >= PART_TIME_CREDIT_LIMIT){
             tuition -= CT_DISCOUNT;
         }
-        else if (this.state.equals("NY")){
+        else if (this.state.equals("NY") && this.creditHours >= PART_TIME_CREDIT_LIMIT){
             tuition -= NY_DISCOUNT;
         }
 

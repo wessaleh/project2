@@ -1,5 +1,7 @@
 package tuition;
 
+import java.text.DecimalFormat;
+
 /**
  * Student class defines the basic data for a student.
  * Parent class of Resident and NonResident classes.
@@ -79,14 +81,17 @@ public class Student {
      */
     public String toString(){
         String toReturn;
+        DecimalFormat payment_Format = new DecimalFormat("###,###.##");
+
+
         if (this.lastPaymentDate == null){
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + this.tuition + ":total payment:" + this.payments +
-                    "last payment date: --/--/----";
+                    " credit hours:tuition due:" + this.tuition + ":total payment:" + payment_Format.format(this.payments) +
+                    "last payment date: --/--/--";
         }
         else{
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + this.tuition + ":total payment:" + this.payments +
+                    " credit hours:tuition due:" + this.tuition + ":total payment:" + payment_Format.format(this.payments) +
                     "last payment date: " + this.lastPaymentDate.toString();
         }
         return toReturn;
