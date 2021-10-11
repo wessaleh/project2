@@ -82,18 +82,17 @@ public class Student {
     public String toString(){
         String toReturn;
         DecimalFormat money_Format = new DecimalFormat("###,###.00");
-        money_Format.setDecimalSeperatorAlwaysShown(true);
         money_Format.setMinimumFractionDigits(2);
-
+        money_Format.setMinimumIntegerDigits(1);
 
         if (this.lastPaymentDate == null){
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + money_Format.format((long) this.tuition) + ":total payment:" + money_Format.format((long) this.payments) +
+                    " credit hours:tuition due:" + money_Format.format(this.tuition) + ":total payment:" + money_Format.format(this.payments) +
                     ":last payment date: --/--/--";
         }
         else{
             toReturn = this.profile.getName() + ":" + this.profile.getMajor() + ":" + this.creditHours +
-                    " credit hours:tuition due:" + money_Format.format((long) this.tuition) + ":total payment:" + money_Format.format((long) this.payments) +
+                    " credit hours:tuition due:" + money_Format.format(this.tuition) + ":total payment:" + money_Format.format(this.payments) +
                     ":last payment date: " + this.lastPaymentDate.toString();
         }
         return toReturn;

@@ -60,7 +60,7 @@ public class TuitionManager {
             case "AT" -> addTriStateStudent(st);
             case "AI" -> addInternationalStudent(st);
             case "R" -> removeStudent(st);
-            case "C" -> calculateStudentTuition(st);
+            case "C" -> calculateStudentTuition();
             case "T" -> payTuition(st);
             case "S" -> setStudyAbroadStatus(st);
             case "F" -> setFinancialAidAmount(st);
@@ -166,7 +166,7 @@ public class TuitionManager {
         try {
             studentMajor = convertStringToMajorCode(majorToken);
         }catch(InputMismatchException e) {
-            System.out.println(majorToken + " is not a valid major."); // student major is not a valid major
+            System.out.println("'" + majorToken + "'" + " is not a valid major."); // student major is not a valid major
             return null;
         }
 
@@ -222,7 +222,7 @@ public class TuitionManager {
             Resident residentStudent = new Resident(studentProfile, numCredits); // creating student
             validateAddStudent(residentStudent); // adding student to roster
         }catch(NumberFormatException e) {
-            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            System.out.println("Invalid credit hours."); // Credits passed in was not an integer
         }
     }
 
@@ -247,7 +247,7 @@ public class TuitionManager {
             NonResident nonResidentStudent = new NonResident(studentProfile, numCredits); // creating student
             validateAddStudent(nonResidentStudent); // adding student to roster
         }catch(NumberFormatException e) {
-            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            System.out.println("Invalid credit hours."); // Credits passed in was not an integer
         }
     }
 
@@ -276,7 +276,7 @@ public class TuitionManager {
             TriState triStateStudent = new TriState(studentProfile, numCredits, stateCode); // creating student
             validateAddStudent(triStateStudent); // adding student to roster
         }catch(NumberFormatException e) {
-            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            System.out.println("Invalid credit hours."); // Credits passed in was not an integer
         }
     }
 
@@ -310,7 +310,7 @@ public class TuitionManager {
             International internationalStudent = new International(studentProfile, numCredits, statusAbroad); // creating student
             validateAddStudent(internationalStudent); // adding student to roster
         }catch(NumberFormatException e) {
-            System.out.println("Invalid credit hours"); // Credits passed in was not an integer
+            System.out.println("Invalid credit hours."); // Credits passed in was not an integer
         }
     }
 
@@ -328,14 +328,18 @@ public class TuitionManager {
         Student studentToRemove = new Student(studentProfile, dummyCredits);
 
         if(studentRoster.remove(studentToRemove)){
-            System.out.println("Student removed from the roster");
+            System.out.println("Student removed from the roster.");
         }else{
-            System.out.println("Student is not in the roster");
+            System.out.println("Student is not in the roster.");
         }
     }
 
-    public static void calculateStudentTuition(StringTokenizer st) {
-
+    /**
+     * Calculates the student tuition for all students
+     */
+    public static void calculateStudentTuition() {
+        studentRoster.calculateTuitionForAllStudents();
+        System.out.println("Calculation completed.");
     }
 
     public static void payTuition(StringTokenizer st) {

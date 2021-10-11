@@ -172,6 +172,15 @@ public class Roster {
     }
 
     /**
+     * Calculates tuition for all students
+     */
+    public void calculateTuitionForAllStudents() {
+        for(int i = 0; i < size; i++){
+            this.roster[i].tuitionDue();
+        }
+    }
+
+    /**
      * Prints the roster
      */
     public void printRoster() {
