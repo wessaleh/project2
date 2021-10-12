@@ -1,0 +1,59 @@
+package unitTesting;
+
+/**
+ * Test for Date class
+ * @author Wesam Saleh, Najibullah Assadullah
+ */
+
+import tuition.Roster;
+import tuition.Student;
+import tuition.Resident;
+import tuition.International;
+import tuition.TriState;
+import tuition.Profile;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class RosterTest {
+
+    @org.junit.jupiter.api.Test
+    boolean add(Student s){
+        Resident resident1 = new Resident(new Profile("Student1", "CS"), 15);
+        Resident resident1Copy = new Resident(new Profile("Student1", "CS"), 13);
+
+        TriState triState1 = new TriState(new Profile("TriState1", "IT"), 14, "CT");
+        TriState triState2 = new TriState(new Profile("TriState2", "ME"), 14, "NY");
+
+        International international1 = new International(new Profile("International1", "EE"), 12, true);
+        International international2 = new International(new Profile("International2", "EE"), 16, false);
+
+        assertTrue(Roster.add(resident1));
+        assertFalse(Roster.add(resident1Copy));
+
+        assertTrue(Roster.add(triState1));
+        assertTrue(Roster.add(triState2));
+
+        assertTrue(Roster.add(international1));
+        assertTrue(Roster.add(international2));
+    }
+
+    boolean remove(Student s){
+        Resident resident1 = new Resident(new Profile("Student1", "CS"), 15);
+        TriState triState1 = new TriState(new Profile("TriState1", "IT"), 14, "CT");
+        International international1 = new International(new Profile("International1", "EE"), 12, true);
+
+        Roster.add(resident1);
+        Roster.add(triState1);
+        Roster.add(international1);
+
+        Resident notEnrolled = new Resident(new Profile("I am not enrolled"), "CS"), 12);
+
+        assertFalse(Roster.remove(notEnrolled));
+        assertTrue(Roster.remove(resident1));
+        assertTrue(Roster.remove(triState1));
+        assertTrue(Roster.remove(international1));
+        assertFalse(Roster.remove(resident1));
+
+    }
+
+}
