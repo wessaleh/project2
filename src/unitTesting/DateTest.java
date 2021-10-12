@@ -2,7 +2,7 @@ package unitTesting;
 
 /**
  * Test for Date class
- * @author Wesam Saleh
+ * @author Wesam Saleh, Najibullah Assadullah
  */
 
 import tuition.Date;
