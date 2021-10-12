@@ -17,7 +17,7 @@ public class Student {
     private static final int NUM_DECIMAL_PLACES = 2;
     private static final int NUM_INT_PLACES = 1;
 
-    private Profile profile;
+    private final Profile profile;
     public int creditHours;
     public double tuition;
     public double finAid;
@@ -77,11 +77,11 @@ public class Student {
 
     }
 
-    @Override
     /**
      * Converts a Student's info to a string
      * @return a string containing a Student's information
      */
+    @Override
     public String toString(){
         String toReturn;
         DecimalFormat money_Format = new DecimalFormat("###,###.00");

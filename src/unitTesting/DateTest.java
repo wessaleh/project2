@@ -1,15 +1,14 @@
 package unitTesting;
 
+import tuition.Date;
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Test for Date class
  * @author Wesam Saleh, Najibullah Assadullah
  */
 
-import tuition.Date;
-import static org.junit.jupiter.api.Assertions.*;
-
 class DateTest {
-
     @org.junit.jupiter.api.Test
     void isValid() {
         Date wrongDay = new Date("12/00/2021");
